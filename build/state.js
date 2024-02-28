@@ -1,0 +1,204 @@
+/* eslint-disable */
+import _m0 from "protobufjs/minimal";
+import { Timestamp } from "./google/protobuf/timestamp";
+export const protobufPackage = "state";
+export var StateType;
+(function (StateType) {
+    StateType[StateType["NOT_USED"] = 0] = "NOT_USED";
+    StateType[StateType["COIN_RECEIVED_LISTENER"] = 1] = "COIN_RECEIVED_LISTENER";
+    StateType[StateType["AMM_CREATED_LISTENER"] = 2] = "AMM_CREATED_LISTENER";
+    StateType[StateType["PUB_SUB"] = 3] = "PUB_SUB";
+    StateType[StateType["COIN_WITHDRAW_LISTENER"] = 4] = "COIN_WITHDRAW_LISTENER";
+    StateType[StateType["COIN_SWAP_LISTENER"] = 5] = "COIN_SWAP_LISTENER";
+    StateType[StateType["COIN_CREATED_LISTENER"] = 6] = "COIN_CREATED_LISTENER";
+    StateType[StateType["TX_BANK_SEND_LISTENER"] = 7] = "TX_BANK_SEND_LISTENER";
+    StateType[StateType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(StateType || (StateType = {}));
+export function stateTypeFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "NOT_USED":
+            return StateType.NOT_USED;
+        case 1:
+        case "COIN_RECEIVED_LISTENER":
+            return StateType.COIN_RECEIVED_LISTENER;
+        case 2:
+        case "AMM_CREATED_LISTENER":
+            return StateType.AMM_CREATED_LISTENER;
+        case 3:
+        case "PUB_SUB":
+            return StateType.PUB_SUB;
+        case 4:
+        case "COIN_WITHDRAW_LISTENER":
+            return StateType.COIN_WITHDRAW_LISTENER;
+        case 5:
+        case "COIN_SWAP_LISTENER":
+            return StateType.COIN_SWAP_LISTENER;
+        case 6:
+        case "COIN_CREATED_LISTENER":
+            return StateType.COIN_CREATED_LISTENER;
+        case 7:
+        case "TX_BANK_SEND_LISTENER":
+            return StateType.TX_BANK_SEND_LISTENER;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return StateType.UNRECOGNIZED;
+    }
+}
+export function stateTypeToJSON(object) {
+    switch (object) {
+        case StateType.NOT_USED:
+            return "NOT_USED";
+        case StateType.COIN_RECEIVED_LISTENER:
+            return "COIN_RECEIVED_LISTENER";
+        case StateType.AMM_CREATED_LISTENER:
+            return "AMM_CREATED_LISTENER";
+        case StateType.PUB_SUB:
+            return "PUB_SUB";
+        case StateType.COIN_WITHDRAW_LISTENER:
+            return "COIN_WITHDRAW_LISTENER";
+        case StateType.COIN_SWAP_LISTENER:
+            return "COIN_SWAP_LISTENER";
+        case StateType.COIN_CREATED_LISTENER:
+            return "COIN_CREATED_LISTENER";
+        case StateType.TX_BANK_SEND_LISTENER:
+            return "TX_BANK_SEND_LISTENER";
+        case StateType.UNRECOGNIZED:
+        default:
+            return "UNRECOGNIZED";
+    }
+}
+function createBaseState() {
+    return { Network: "", StateType: 0, Content: "", CreatedAt: undefined, UpdatedAt: undefined };
+}
+export const State = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.Network !== "") {
+            writer.uint32(10).string(message.Network);
+        }
+        if (message.StateType !== 0) {
+            writer.uint32(16).int32(message.StateType);
+        }
+        if (message.Content !== "") {
+            writer.uint32(26).string(message.Content);
+        }
+        if (message.CreatedAt !== undefined) {
+            Timestamp.encode(toTimestamp(message.CreatedAt), writer.uint32(34).fork()).ldelim();
+        }
+        if (message.UpdatedAt !== undefined) {
+            Timestamp.encode(toTimestamp(message.UpdatedAt), writer.uint32(42).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseState();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.Network = reader.string();
+                    continue;
+                case 2:
+                    if (tag !== 16) {
+                        break;
+                    }
+                    message.StateType = reader.int32();
+                    continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.Content = reader.string();
+                    continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.CreatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+                    continue;
+                case 5:
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.UpdatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            Network: isSet(object.Network) ? globalThis.String(object.Network) : "",
+            StateType: isSet(object.StateType) ? stateTypeFromJSON(object.StateType) : 0,
+            Content: isSet(object.Content) ? globalThis.String(object.Content) : "",
+            CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
+            UpdatedAt: isSet(object.UpdatedAt) ? fromJsonTimestamp(object.UpdatedAt) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.Network !== "") {
+            obj.Network = message.Network;
+        }
+        if (message.StateType !== 0) {
+            obj.StateType = stateTypeToJSON(message.StateType);
+        }
+        if (message.Content !== "") {
+            obj.Content = message.Content;
+        }
+        if (message.CreatedAt !== undefined) {
+            obj.CreatedAt = message.CreatedAt.toISOString();
+        }
+        if (message.UpdatedAt !== undefined) {
+            obj.UpdatedAt = message.UpdatedAt.toISOString();
+        }
+        return obj;
+    },
+    create(base) {
+        return State.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e;
+        const message = createBaseState();
+        message.Network = (_a = object.Network) !== null && _a !== void 0 ? _a : "";
+        message.StateType = (_b = object.StateType) !== null && _b !== void 0 ? _b : 0;
+        message.Content = (_c = object.Content) !== null && _c !== void 0 ? _c : "";
+        message.CreatedAt = (_d = object.CreatedAt) !== null && _d !== void 0 ? _d : undefined;
+        message.UpdatedAt = (_e = object.UpdatedAt) !== null && _e !== void 0 ? _e : undefined;
+        return message;
+    },
+};
+function toTimestamp(date) {
+    const seconds = date.getTime() / 1000;
+    const nanos = (date.getTime() % 1000) * 1000000;
+    return { seconds, nanos };
+}
+function fromTimestamp(t) {
+    let millis = (t.seconds || 0) * 1000;
+    millis += (t.nanos || 0) / 1000000;
+    return new globalThis.Date(millis);
+}
+function fromJsonTimestamp(o) {
+    if (o instanceof globalThis.Date) {
+        return o;
+    }
+    else if (typeof o === "string") {
+        return new globalThis.Date(o);
+    }
+    else {
+        return fromTimestamp(Timestamp.fromJSON(o));
+    }
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
+}

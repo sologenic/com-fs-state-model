@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package state;
+
+import "google/protobuf/empty.proto";
+import "state.proto";
+
+option go_package = "github.com/sologenic/com-fs-state-model;state";
+
+service StateService {
+    rpc Upsert(state.State) returns (google.protobuf.Empty);
+    rpc Get(StateQuery) returns (state.State);
+}
+
+message StateQuery {
+    string Network = 1;
+    state.StateType StateType = 2;
+}

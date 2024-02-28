@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package state;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/sologenic/com-fs-state-model;state";
+
+message State {
+    string Network = 1;
+    StateType StateType = 2;
+    string Content = 3;
+    google.protobuf.Timestamp CreatedAt = 4;
+    google.protobuf.Timestamp UpdatedAt = 5;
+}
+
+enum StateType {
+    NOT_USED = 0;
+    COIN_RECEIVED_LISTENER = 1;
+    AMM_CREATED_LISTENER = 2;
+    PUB_SUB = 3;
+    COIN_WITHDRAW_LISTENER = 4;
+    COIN_SWAP_LISTENER = 5;
+    COIN_CREATED_LISTENER = 6;
+    TX_BANK_SEND_LISTENER = 7;
+}

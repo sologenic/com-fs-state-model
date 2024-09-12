@@ -1,5 +1,5 @@
 {
-  "name": "fs-state-model",
+  "name": "com-fs-state-model",
   "version": "1.0.0",
   "description": "",
   "main": "build/state.js",

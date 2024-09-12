@@ -3,8 +3,8 @@ package client
 import (
 	"context"
 
-	grpcclient "github.com/sologenic/fs-utils-lib/go/grpc-client"
 	grpcdef "github.com/sologenic/com-fs-state-model"
+	grpcclient "github.com/sologenic/com-fs-utils-lib/go/grpc-client"
 )
 
 const endpoint = "STATE_STORE"

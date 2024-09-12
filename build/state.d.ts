@@ -2,13 +2,13 @@ import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "state";
 export declare enum StateType {
     NOT_USED = 0,
-    COIN_RECEIVED_LISTENER = 1,
-    AMM_CREATED_LISTENER = 2,
-    PUB_SUB = 3,
-    COIN_WITHDRAW_LISTENER = 4,
-    COIN_SWAP_LISTENER = 5,
-    COIN_CREATED_LISTENER = 6,
-    TX_BANK_SEND_LISTENER = 7,
+    ORDER_PURCHASE_LISTENER = 1,
+    ORDER_SELL_LISTENER = 2,
+    ORDER_CANCEL_LISTENER = 3,
+    ORDER_UPDATE_LISTENER = 4,
+    ORDER_PAY_LISTENER = 5,
+    REATTESTATION_REQUEST_LISTENER = 6,
+    PUB_SUB = 7,
     UNRECOGNIZED = -1
 }
 export declare function stateTypeFromJSON(object: any): StateType;

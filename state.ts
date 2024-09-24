@@ -8,7 +8,8 @@ export enum StateType {
   NOT_USED = 0,
   ORDER_PURCHASE_LISTENER = 1,
   ORDER_SELL_LISTENER = 2,
-  ORDER_CANCEL_LISTENER = 3,
+  ORDER_CANCEL_REQUEST_LISTENER = 3,
+  /** ORDER_UPDATE_LISTENER - Order Execution */
   ORDER_UPDATE_LISTENER = 4,
   ORDER_PAY_LISTENER = 5,
   REATTESTATION_REQUEST_LISTENER = 6,
@@ -28,8 +29,8 @@ export function stateTypeFromJSON(object: any): StateType {
     case "ORDER_SELL_LISTENER":
       return StateType.ORDER_SELL_LISTENER;
     case 3:
-    case "ORDER_CANCEL_LISTENER":
-      return StateType.ORDER_CANCEL_LISTENER;
+    case "ORDER_CANCEL_REQUEST_LISTENER":
+      return StateType.ORDER_CANCEL_REQUEST_LISTENER;
     case 4:
     case "ORDER_UPDATE_LISTENER":
       return StateType.ORDER_UPDATE_LISTENER;
@@ -57,8 +58,8 @@ export function stateTypeToJSON(object: StateType): string {
       return "ORDER_PURCHASE_LISTENER";
     case StateType.ORDER_SELL_LISTENER:
       return "ORDER_SELL_LISTENER";
-    case StateType.ORDER_CANCEL_LISTENER:
-      return "ORDER_CANCEL_LISTENER";
+    case StateType.ORDER_CANCEL_REQUEST_LISTENER:
+      return "ORDER_CANCEL_REQUEST_LISTENER";
     case StateType.ORDER_UPDATE_LISTENER:
       return "ORDER_UPDATE_LISTENER";
     case StateType.ORDER_PAY_LISTENER:

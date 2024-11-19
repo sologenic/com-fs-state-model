@@ -6,13 +6,14 @@ export const protobufPackage = "state";
 
 export enum StateType {
   NOT_USED = 0,
-  COIN_RECEIVED_LISTENER = 1,
-  AMM_CREATED_LISTENER = 2,
-  PUB_SUB = 3,
-  COIN_WITHDRAW_LISTENER = 4,
-  COIN_SWAP_LISTENER = 5,
-  COIN_CREATED_LISTENER = 6,
-  TX_BANK_SEND_LISTENER = 7,
+  ORDER_PURCHASE_LISTENER = 1,
+  ORDER_SELL_LISTENER = 2,
+  ORDER_CANCEL_REQUEST_LISTENER = 3,
+  /** ORDER_UPDATE_LISTENER - Order Execution */
+  ORDER_UPDATE_LISTENER = 4,
+  ORDER_PAY_LISTENER = 5,
+  REATTESTATION_REQUEST_LISTENER = 6,
+  PUB_SUB = 7,
   UNRECOGNIZED = -1,
 }
 
@@ -22,26 +23,26 @@ export function stateTypeFromJSON(object: any): StateType {
     case "NOT_USED":
       return StateType.NOT_USED;
     case 1:
-    case "COIN_RECEIVED_LISTENER":
-      return StateType.COIN_RECEIVED_LISTENER;
+    case "ORDER_PURCHASE_LISTENER":
+      return StateType.ORDER_PURCHASE_LISTENER;
     case 2:
-    case "AMM_CREATED_LISTENER":
-      return StateType.AMM_CREATED_LISTENER;
+    case "ORDER_SELL_LISTENER":
+      return StateType.ORDER_SELL_LISTENER;
     case 3:
+    case "ORDER_CANCEL_REQUEST_LISTENER":
+      return StateType.ORDER_CANCEL_REQUEST_LISTENER;
+    case 4:
+    case "ORDER_UPDATE_LISTENER":
+      return StateType.ORDER_UPDATE_LISTENER;
+    case 5:
+    case "ORDER_PAY_LISTENER":
+      return StateType.ORDER_PAY_LISTENER;
+    case 6:
+    case "REATTESTATION_REQUEST_LISTENER":
+      return StateType.REATTESTATION_REQUEST_LISTENER;
+    case 7:
     case "PUB_SUB":
       return StateType.PUB_SUB;
-    case 4:
-    case "COIN_WITHDRAW_LISTENER":
-      return StateType.COIN_WITHDRAW_LISTENER;
-    case 5:
-    case "COIN_SWAP_LISTENER":
-      return StateType.COIN_SWAP_LISTENER;
-    case 6:
-    case "COIN_CREATED_LISTENER":
-      return StateType.COIN_CREATED_LISTENER;
-    case 7:
-    case "TX_BANK_SEND_LISTENER":
-      return StateType.TX_BANK_SEND_LISTENER;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -53,20 +54,20 @@ export function stateTypeToJSON(object: StateType): string {
   switch (object) {
     case StateType.NOT_USED:
       return "NOT_USED";
-    case StateType.COIN_RECEIVED_LISTENER:
-      return "COIN_RECEIVED_LISTENER";
-    case StateType.AMM_CREATED_LISTENER:
-      return "AMM_CREATED_LISTENER";
+    case StateType.ORDER_PURCHASE_LISTENER:
+      return "ORDER_PURCHASE_LISTENER";
+    case StateType.ORDER_SELL_LISTENER:
+      return "ORDER_SELL_LISTENER";
+    case StateType.ORDER_CANCEL_REQUEST_LISTENER:
+      return "ORDER_CANCEL_REQUEST_LISTENER";
+    case StateType.ORDER_UPDATE_LISTENER:
+      return "ORDER_UPDATE_LISTENER";
+    case StateType.ORDER_PAY_LISTENER:
+      return "ORDER_PAY_LISTENER";
+    case StateType.REATTESTATION_REQUEST_LISTENER:
+      return "REATTESTATION_REQUEST_LISTENER";
     case StateType.PUB_SUB:
       return "PUB_SUB";
-    case StateType.COIN_WITHDRAW_LISTENER:
-      return "COIN_WITHDRAW_LISTENER";
-    case StateType.COIN_SWAP_LISTENER:
-      return "COIN_SWAP_LISTENER";
-    case StateType.COIN_CREATED_LISTENER:
-      return "COIN_CREATED_LISTENER";
-    case StateType.TX_BANK_SEND_LISTENER:
-      return "TX_BANK_SEND_LISTENER";
     case StateType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";

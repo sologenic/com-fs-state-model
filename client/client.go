@@ -9,8 +9,10 @@ import (
 
 const endpoint = "STATE_STORE"
 
-var client *grpcdef.StateServiceClient
-var grpcClient *grpcclient.GRPCClient
+var (
+	client     grpcdef.StateServiceClient
+	grpcClient *grpcclient.GRPCClient
+)
 
 /*
 Initialize the client.
@@ -20,12 +22,10 @@ localhost => No port is not local
 */
 func initClient() {
 	grpcClient = grpcclient.InitClient(endpoint)
-
-	cl := grpcdef.NewStateServiceClient(grpcClient.Conn)
-	client = &cl
+	client = grpcdef.NewStateServiceClient(grpcClient.Conn)
 }
 
-func Client() *grpcdef.StateServiceClient {
+func Client() grpcdef.StateServiceClient {
 	if client == nil {
 		initClient()
 	}

@@ -1,11 +1,12 @@
 module github.com/sologenic/com-fs-state-model
 
-go 1.22.1
+go 1.23.4
 
 require (
 	github.com/sologenic/com-fs-utils-lib/go/grpc-client v0.0.0-20240911001906-b032eb5b41fc
+	github.com/sologenic/com-fs-utils-lib/models/metadata v0.0.0-20241212234326-14a7503bbe70
 	google.golang.org/grpc v1.62.0
-	google.golang.org/protobuf v1.32.0
+	google.golang.org/protobuf v1.35.2
 )
 
 require (

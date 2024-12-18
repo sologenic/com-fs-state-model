@@ -1,6 +1,7 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 import { Timestamp } from "./google/protobuf/timestamp";
+import { Network, networkFromJSON, networkToJSON } from "./sologenic/com-fs-utils-lib/models/metadata/metadata";
 
 export const protobufPackage = "state";
 
@@ -75,7 +76,7 @@ export function stateTypeToJSON(object: StateType): string {
 }
 
 export interface State {
-  Network: string;
+  Network: Network;
   StateType: StateType;
   Content: string;
   CreatedAt: Date | undefined;
@@ -83,13 +84,13 @@ export interface State {
 }
 
 function createBaseState(): State {
-  return { Network: "", StateType: 0, Content: "", CreatedAt: undefined, UpdatedAt: undefined };
+  return { Network: 0, StateType: 0, Content: "", CreatedAt: undefined, UpdatedAt: undefined };
 }
 
 export const State = {
   encode(message: State, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.Network !== "") {
-      writer.uint32(10).string(message.Network);
+    if (message.Network !== 0) {
+      writer.uint32(8).int32(message.Network);
     }
     if (message.StateType !== 0) {
       writer.uint32(16).int32(message.StateType);
@@ -114,11 +115,11 @@ export const State = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag !== 10) {
+          if (tag !== 8) {
             break;
           }
 
-          message.Network = reader.string();
+          message.Network = reader.int32() as any;
           continue;
         case 2:
           if (tag !== 16) {
@@ -159,7 +160,7 @@ export const State = {
 
   fromJSON(object: any): State {
     return {
-      Network: isSet(object.Network) ? globalThis.String(object.Network) : "",
+      Network: isSet(object.Network) ? networkFromJSON(object.Network) : 0,
       StateType: isSet(object.StateType) ? stateTypeFromJSON(object.StateType) : 0,
       Content: isSet(object.Content) ? globalThis.String(object.Content) : "",
       CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
@@ -169,8 +170,8 @@ export const State = {
 
   toJSON(message: State): unknown {
     const obj: any = {};
-    if (message.Network !== "") {
-      obj.Network = message.Network;
+    if (message.Network !== 0) {
+      obj.Network = networkToJSON(message.Network);
     }
     if (message.StateType !== 0) {
       obj.StateType = stateTypeToJSON(message.StateType);
@@ -192,7 +193,7 @@ export const State = {
   },
   fromPartial<I extends Exact<DeepPartial<State>, I>>(object: I): State {
     const message = createBaseState();
-    message.Network = object.Network ?? "";
+    message.Network = object.Network ?? 0;
     message.StateType = object.StateType ?? 0;
     message.Content = object.Content ?? "";
     message.CreatedAt = object.CreatedAt ?? undefined;

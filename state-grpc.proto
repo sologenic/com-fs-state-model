@@ -2,10 +2,11 @@ syntax = "proto3";
 
 package state;
 
+option go_package = "github.com/sologenic/com-fs-state-model;state";
+
 import "google/protobuf/empty.proto";
 import "state.proto";
-
-option go_package = "github.com/sologenic/com-fs-state-model;state";
+import "sologenic/com-fs-utils-lib/models/metadata/metadata.proto";
 
 service StateService {
     rpc Upsert(state.State) returns (google.protobuf.Empty);
@@ -13,6 +14,6 @@ service StateService {
 }
 
 message StateQuery {
-    string Network = 1;
+    metadata.Network Network = 1;
     state.StateType StateType = 2;
 }

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 import { Timestamp } from "./google/protobuf/timestamp";
+import { networkFromJSON, networkToJSON } from "./sologenic/com-fs-utils-lib/models/metadata/metadata";
 export const protobufPackage = "state";
 export var StateType;
 (function (StateType) {
@@ -71,12 +72,12 @@ export function stateTypeToJSON(object) {
     }
 }
 function createBaseState() {
-    return { Network: "", StateType: 0, Content: "", CreatedAt: undefined, UpdatedAt: undefined };
+    return { Network: 0, StateType: 0, Content: "", CreatedAt: undefined, UpdatedAt: undefined };
 }
 export const State = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.Network !== "") {
-            writer.uint32(10).string(message.Network);
+        if (message.Network !== 0) {
+            writer.uint32(8).int32(message.Network);
         }
         if (message.StateType !== 0) {
             writer.uint32(16).int32(message.StateType);
@@ -100,10 +101,10 @@ export const State = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 10) {
+                    if (tag !== 8) {
                         break;
                     }
-                    message.Network = reader.string();
+                    message.Network = reader.int32();
                     continue;
                 case 2:
                     if (tag !== 16) {
@@ -139,7 +140,7 @@ export const State = {
     },
     fromJSON(object) {
         return {
-            Network: isSet(object.Network) ? globalThis.String(object.Network) : "",
+            Network: isSet(object.Network) ? networkFromJSON(object.Network) : 0,
             StateType: isSet(object.StateType) ? stateTypeFromJSON(object.StateType) : 0,
             Content: isSet(object.Content) ? globalThis.String(object.Content) : "",
             CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
@@ -148,8 +149,8 @@ export const State = {
     },
     toJSON(message) {
         const obj = {};
-        if (message.Network !== "") {
-            obj.Network = message.Network;
+        if (message.Network !== 0) {
+            obj.Network = networkToJSON(message.Network);
         }
         if (message.StateType !== 0) {
             obj.StateType = stateTypeToJSON(message.StateType);
@@ -171,7 +172,7 @@ export const State = {
     fromPartial(object) {
         var _a, _b, _c, _d, _e;
         const message = createBaseState();
-        message.Network = (_a = object.Network) !== null && _a !== void 0 ? _a : "";
+        message.Network = (_a = object.Network) !== null && _a !== void 0 ? _a : 0;
         message.StateType = (_b = object.StateType) !== null && _b !== void 0 ? _b : 0;
         message.Content = (_c = object.Content) !== null && _c !== void 0 ? _c : "";
         message.CreatedAt = (_d = object.CreatedAt) !== null && _d !== void 0 ? _d : undefined;

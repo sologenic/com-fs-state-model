@@ -1,4 +1,5 @@
 import _m0 from "protobufjs/minimal";
+import { Network } from "./sologenic/com-fs-utils-lib/models/metadata/metadata";
 export declare const protobufPackage = "state";
 export declare enum StateType {
     NOT_USED = 0,
@@ -15,7 +16,7 @@ export declare enum StateType {
 export declare function stateTypeFromJSON(object: any): StateType;
 export declare function stateTypeToJSON(object: StateType): string;
 export interface State {
-    Network: string;
+    Network: Network;
     StateType: StateType;
     Content: string;
     CreatedAt: Date | undefined;
@@ -27,26 +28,26 @@ export declare const State: {
     fromJSON(object: any): State;
     toJSON(message: State): unknown;
     create<I extends {
-        Network?: string | undefined;
+        Network?: Network | undefined;
         StateType?: StateType | undefined;
         Content?: string | undefined;
         CreatedAt?: Date | undefined;
         UpdatedAt?: Date | undefined;
     } & {
-        Network?: string | undefined;
+        Network?: Network | undefined;
         StateType?: StateType | undefined;
         Content?: string | undefined;
         CreatedAt?: Date | undefined;
         UpdatedAt?: Date | undefined;
     } & { [K in Exclude<keyof I, keyof State>]: never; }>(base?: I | undefined): State;
     fromPartial<I_1 extends {
-        Network?: string | undefined;
+        Network?: Network | undefined;
         StateType?: StateType | undefined;
         Content?: string | undefined;
         CreatedAt?: Date | undefined;
         UpdatedAt?: Date | undefined;
     } & {
-        Network?: string | undefined;
+        Network?: Network | undefined;
         StateType?: StateType | undefined;
         Content?: string | undefined;
         CreatedAt?: Date | undefined;

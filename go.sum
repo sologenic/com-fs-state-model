@@ -69,6 +69,8 @@ github.com/sologenic/com-fs-utils-lib/go/logger v0.0.0-20240906214824-8118c42c5b
 github.com/sologenic/com-fs-utils-lib/go/logger v0.0.0-20240906214824-8118c42c5b35/go.mod h1:++g+mQb95rje/dEjNJDM1F1ftwM1GobPgAh1zNG+hEw=
 github.com/sologenic/com-fs-utils-lib/models/metadata v0.0.0-20241212234326-14a7503bbe70 h1:CKKV++tRiEIlgr+w0tXNWhRRgI7EM14pR1HovZJg9E0=
 github.com/sologenic/com-fs-utils-lib/models/metadata v0.0.0-20241212234326-14a7503bbe70/go.mod h1:ftOGlExX3C/AN24/N3j3+rHo4C7ehxfHNGpimuWv7IQ=
+github.com/sologenic/com-fs-utils-lib/models/metadata v0.0.0-20250109001422-b192c02d1635 h1:alWhEet3WKM9x8Ppa4vE7x9zOenGHVOCmXT4dM4YoDA=
+github.com/sologenic/com-fs-utils-lib/models/metadata v0.0.0-20250109001422-b192c02d1635/go.mod h1:ftOGlExX3C/AN24/N3j3+rHo4C7ehxfHNGpimuWv7IQ=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
 github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=

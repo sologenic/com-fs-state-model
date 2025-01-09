@@ -53,8 +53,7 @@ export function networkToJSON(object: Network): string {
 export interface MetaData {
   /** mainnet, testnet, devnet, can also be some virtually defined network (extra devnet for testing, extra mainnnet node for scanning historical blocks, etc) */
   Network: Network;
-  /** Important that there is an actual time in the event */
-  ExecutedAt:
+  UpdatedAt:
     | Date
     | undefined;
   /** Internal to listener */
@@ -62,7 +61,7 @@ export interface MetaData {
 }
 
 function createBaseMetaData(): MetaData {
-  return { Network: 0, ExecutedAt: undefined, CreatedAt: undefined };
+  return { Network: 0, UpdatedAt: undefined, CreatedAt: undefined };
 }
 
 export const MetaData = {
@@ -70,8 +69,8 @@ export const MetaData = {
     if (message.Network !== 0) {
       writer.uint32(8).int32(message.Network);
     }
-    if (message.ExecutedAt !== undefined) {
-      Timestamp.encode(toTimestamp(message.ExecutedAt), writer.uint32(18).fork()).ldelim();
+    if (message.UpdatedAt !== undefined) {
+      Timestamp.encode(toTimestamp(message.UpdatedAt), writer.uint32(18).fork()).ldelim();
     }
     if (message.CreatedAt !== undefined) {
       Timestamp.encode(toTimestamp(message.CreatedAt), writer.uint32(26).fork()).ldelim();
@@ -98,7 +97,7 @@ export const MetaData = {
             break;
           }
 
-          message.ExecutedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.UpdatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           continue;
         case 3:
           if (tag !== 26) {
@@ -119,7 +118,7 @@ export const MetaData = {
   fromJSON(object: any): MetaData {
     return {
       Network: isSet(object.Network) ? networkFromJSON(object.Network) : 0,
-      ExecutedAt: isSet(object.ExecutedAt) ? fromJsonTimestamp(object.ExecutedAt) : undefined,
+      UpdatedAt: isSet(object.UpdatedAt) ? fromJsonTimestamp(object.UpdatedAt) : undefined,
       CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
     };
   },
@@ -129,8 +128,8 @@ export const MetaData = {
     if (message.Network !== 0) {
       obj.Network = networkToJSON(message.Network);
     }
-    if (message.ExecutedAt !== undefined) {
-      obj.ExecutedAt = message.ExecutedAt.toISOString();
+    if (message.UpdatedAt !== undefined) {
+      obj.UpdatedAt = message.UpdatedAt.toISOString();
     }
     if (message.CreatedAt !== undefined) {
       obj.CreatedAt = message.CreatedAt.toISOString();
@@ -144,7 +143,7 @@ export const MetaData = {
   fromPartial<I extends Exact<DeepPartial<MetaData>, I>>(object: I): MetaData {
     const message = createBaseMetaData();
     message.Network = object.Network ?? 0;
-    message.ExecutedAt = object.ExecutedAt ?? undefined;
+    message.UpdatedAt = object.UpdatedAt ?? undefined;
     message.CreatedAt = object.CreatedAt ?? undefined;
     return message;
   },

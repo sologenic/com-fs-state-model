@@ -1,7 +1,6 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
-import { Timestamp } from "./google/protobuf/timestamp";
-import { Network, networkFromJSON, networkToJSON } from "./sologenic/com-fs-utils-lib/models/metadata/metadata";
+import { MetaData } from "./sologenic/com-fs-utils-lib/models/metadata/metadata";
 
 export const protobufPackage = "state";
 
@@ -76,33 +75,25 @@ export function stateTypeToJSON(object: StateType): string {
 }
 
 export interface State {
-  Network: Network;
   StateType: StateType;
   Content: string;
-  CreatedAt: Date | undefined;
-  UpdatedAt: Date | undefined;
+  MetaData: MetaData | undefined;
 }
 
 function createBaseState(): State {
-  return { Network: 0, StateType: 0, Content: "", CreatedAt: undefined, UpdatedAt: undefined };
+  return { StateType: 0, Content: "", MetaData: undefined };
 }
 
 export const State = {
   encode(message: State, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.Network !== 0) {
-      writer.uint32(8).int32(message.Network);
-    }
     if (message.StateType !== 0) {
-      writer.uint32(16).int32(message.StateType);
+      writer.uint32(8).int32(message.StateType);
     }
     if (message.Content !== "") {
-      writer.uint32(26).string(message.Content);
+      writer.uint32(18).string(message.Content);
     }
-    if (message.CreatedAt !== undefined) {
-      Timestamp.encode(toTimestamp(message.CreatedAt), writer.uint32(34).fork()).ldelim();
-    }
-    if (message.UpdatedAt !== undefined) {
-      Timestamp.encode(toTimestamp(message.UpdatedAt), writer.uint32(42).fork()).ldelim();
+    if (message.MetaData !== undefined) {
+      MetaData.encode(message.MetaData, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -119,35 +110,21 @@ export const State = {
             break;
           }
 
-          message.Network = reader.int32() as any;
+          message.StateType = reader.int32() as any;
           continue;
         case 2:
-          if (tag !== 16) {
+          if (tag !== 18) {
             break;
           }
 
-          message.StateType = reader.int32() as any;
+          message.Content = reader.string();
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.Content = reader.string();
-          continue;
-        case 4:
-          if (tag !== 34) {
-            break;
-          }
-
-          message.CreatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          continue;
-        case 5:
-          if (tag !== 42) {
-            break;
-          }
-
-          message.UpdatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.MetaData = MetaData.decode(reader, reader.uint32());
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -160,30 +137,22 @@ export const State = {
 
   fromJSON(object: any): State {
     return {
-      Network: isSet(object.Network) ? networkFromJSON(object.Network) : 0,
       StateType: isSet(object.StateType) ? stateTypeFromJSON(object.StateType) : 0,
       Content: isSet(object.Content) ? globalThis.String(object.Content) : "",
-      CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
-      UpdatedAt: isSet(object.UpdatedAt) ? fromJsonTimestamp(object.UpdatedAt) : undefined,
+      MetaData: isSet(object.MetaData) ? MetaData.fromJSON(object.MetaData) : undefined,
     };
   },
 
   toJSON(message: State): unknown {
     const obj: any = {};
-    if (message.Network !== 0) {
-      obj.Network = networkToJSON(message.Network);
-    }
     if (message.StateType !== 0) {
       obj.StateType = stateTypeToJSON(message.StateType);
     }
     if (message.Content !== "") {
       obj.Content = message.Content;
     }
-    if (message.CreatedAt !== undefined) {
-      obj.CreatedAt = message.CreatedAt.toISOString();
-    }
-    if (message.UpdatedAt !== undefined) {
-      obj.UpdatedAt = message.UpdatedAt.toISOString();
+    if (message.MetaData !== undefined) {
+      obj.MetaData = MetaData.toJSON(message.MetaData);
     }
     return obj;
   },
@@ -193,11 +162,11 @@ export const State = {
   },
   fromPartial<I extends Exact<DeepPartial<State>, I>>(object: I): State {
     const message = createBaseState();
-    message.Network = object.Network ?? 0;
     message.StateType = object.StateType ?? 0;
     message.Content = object.Content ?? "";
-    message.CreatedAt = object.CreatedAt ?? undefined;
-    message.UpdatedAt = object.UpdatedAt ?? undefined;
+    message.MetaData = (object.MetaData !== undefined && object.MetaData !== null)
+      ? MetaData.fromPartial(object.MetaData)
+      : undefined;
     return message;
   },
 };
@@ -213,28 +182,6 @@ export type DeepPartial<T> = T extends Builtin ? T
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-function toTimestamp(date: Date): Timestamp {
-  const seconds = date.getTime() / 1_000;
-  const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
-}
-
-function fromTimestamp(t: Timestamp): Date {
-  let millis = (t.seconds || 0) * 1_000;
-  millis += (t.nanos || 0) / 1_000_000;
-  return new globalThis.Date(millis);
-}
-
-function fromJsonTimestamp(o: any): Date {
-  if (o instanceof globalThis.Date) {
-    return o;
-  } else if (typeof o === "string") {
-    return new globalThis.Date(o);
-  } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
-  }
-}
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

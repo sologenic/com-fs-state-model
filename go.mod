@@ -4,7 +4,7 @@ go 1.23.4
 
 require (
 	github.com/sologenic/com-fs-utils-lib/go/grpc-client v0.0.0-20240911001906-b032eb5b41fc
-	github.com/sologenic/com-fs-utils-lib/models/metadata v0.0.0-20241212234326-14a7503bbe70
+	github.com/sologenic/com-fs-utils-lib/models/metadata v0.0.0-20250109001422-b192c02d1635
 	google.golang.org/grpc v1.62.0
 	google.golang.org/protobuf v1.35.2
 )

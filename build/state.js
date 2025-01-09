@@ -1,7 +1,6 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
-import { Timestamp } from "./google/protobuf/timestamp";
-import { networkFromJSON, networkToJSON } from "./sologenic/com-fs-utils-lib/models/metadata/metadata";
+import { MetaData } from "./sologenic/com-fs-utils-lib/models/metadata/metadata";
 export const protobufPackage = "state";
 export var StateType;
 (function (StateType) {
@@ -72,24 +71,18 @@ export function stateTypeToJSON(object) {
     }
 }
 function createBaseState() {
-    return { Network: 0, StateType: 0, Content: "", CreatedAt: undefined, UpdatedAt: undefined };
+    return { StateType: 0, Content: "", MetaData: undefined };
 }
 export const State = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.Network !== 0) {
-            writer.uint32(8).int32(message.Network);
-        }
         if (message.StateType !== 0) {
-            writer.uint32(16).int32(message.StateType);
+            writer.uint32(8).int32(message.StateType);
         }
         if (message.Content !== "") {
-            writer.uint32(26).string(message.Content);
+            writer.uint32(18).string(message.Content);
         }
-        if (message.CreatedAt !== undefined) {
-            Timestamp.encode(toTimestamp(message.CreatedAt), writer.uint32(34).fork()).ldelim();
-        }
-        if (message.UpdatedAt !== undefined) {
-            Timestamp.encode(toTimestamp(message.UpdatedAt), writer.uint32(42).fork()).ldelim();
+        if (message.MetaData !== undefined) {
+            MetaData.encode(message.MetaData, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -104,31 +97,19 @@ export const State = {
                     if (tag !== 8) {
                         break;
                     }
-                    message.Network = reader.int32();
+                    message.StateType = reader.int32();
                     continue;
                 case 2:
-                    if (tag !== 16) {
+                    if (tag !== 18) {
                         break;
                     }
-                    message.StateType = reader.int32();
+                    message.Content = reader.string();
                     continue;
                 case 3:
                     if (tag !== 26) {
                         break;
                     }
-                    message.Content = reader.string();
-                    continue;
-                case 4:
-                    if (tag !== 34) {
-                        break;
-                    }
-                    message.CreatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-                    continue;
-                case 5:
-                    if (tag !== 42) {
-                        break;
-                    }
-                    message.UpdatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+                    message.MetaData = MetaData.decode(reader, reader.uint32());
                     continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
@@ -140,29 +121,21 @@ export const State = {
     },
     fromJSON(object) {
         return {
-            Network: isSet(object.Network) ? networkFromJSON(object.Network) : 0,
             StateType: isSet(object.StateType) ? stateTypeFromJSON(object.StateType) : 0,
             Content: isSet(object.Content) ? globalThis.String(object.Content) : "",
-            CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
-            UpdatedAt: isSet(object.UpdatedAt) ? fromJsonTimestamp(object.UpdatedAt) : undefined,
+            MetaData: isSet(object.MetaData) ? MetaData.fromJSON(object.MetaData) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.Network !== 0) {
-            obj.Network = networkToJSON(message.Network);
-        }
         if (message.StateType !== 0) {
             obj.StateType = stateTypeToJSON(message.StateType);
         }
         if (message.Content !== "") {
             obj.Content = message.Content;
         }
-        if (message.CreatedAt !== undefined) {
-            obj.CreatedAt = message.CreatedAt.toISOString();
-        }
-        if (message.UpdatedAt !== undefined) {
-            obj.UpdatedAt = message.UpdatedAt.toISOString();
+        if (message.MetaData !== undefined) {
+            obj.MetaData = MetaData.toJSON(message.MetaData);
         }
         return obj;
     },
@@ -170,37 +143,16 @@ export const State = {
         return State.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b;
         const message = createBaseState();
-        message.Network = (_a = object.Network) !== null && _a !== void 0 ? _a : 0;
-        message.StateType = (_b = object.StateType) !== null && _b !== void 0 ? _b : 0;
-        message.Content = (_c = object.Content) !== null && _c !== void 0 ? _c : "";
-        message.CreatedAt = (_d = object.CreatedAt) !== null && _d !== void 0 ? _d : undefined;
-        message.UpdatedAt = (_e = object.UpdatedAt) !== null && _e !== void 0 ? _e : undefined;
+        message.StateType = (_a = object.StateType) !== null && _a !== void 0 ? _a : 0;
+        message.Content = (_b = object.Content) !== null && _b !== void 0 ? _b : "";
+        message.MetaData = (object.MetaData !== undefined && object.MetaData !== null)
+            ? MetaData.fromPartial(object.MetaData)
+            : undefined;
         return message;
     },
 };
-function toTimestamp(date) {
-    const seconds = date.getTime() / 1000;
-    const nanos = (date.getTime() % 1000) * 1000000;
-    return { seconds, nanos };
-}
-function fromTimestamp(t) {
-    let millis = (t.seconds || 0) * 1000;
-    millis += (t.nanos || 0) / 1000000;
-    return new globalThis.Date(millis);
-}
-function fromJsonTimestamp(o) {
-    if (o instanceof globalThis.Date) {
-        return o;
-    }
-    else if (typeof o === "string") {
-        return new globalThis.Date(o);
-    }
-    else {
-        return fromTimestamp(Timestamp.fromJSON(o));
-    }
-}
 function isSet(value) {
     return value !== null && value !== undefined;
 }

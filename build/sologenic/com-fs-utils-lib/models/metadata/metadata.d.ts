@@ -13,8 +13,7 @@ export declare function networkToJSON(object: Network): string;
 export interface MetaData {
     /** mainnet, testnet, devnet, can also be some virtually defined network (extra devnet for testing, extra mainnnet node for scanning historical blocks, etc) */
     Network: Network;
-    /** Important that there is an actual time in the event */
-    ExecutedAt: Date | undefined;
+    UpdatedAt: Date | undefined;
     /** Internal to listener */
     CreatedAt: Date | undefined;
 }
@@ -25,20 +24,20 @@ export declare const MetaData: {
     toJSON(message: MetaData): unknown;
     create<I extends {
         Network?: Network | undefined;
-        ExecutedAt?: Date | undefined;
+        UpdatedAt?: Date | undefined;
         CreatedAt?: Date | undefined;
     } & {
         Network?: Network | undefined;
-        ExecutedAt?: Date | undefined;
+        UpdatedAt?: Date | undefined;
         CreatedAt?: Date | undefined;
     } & { [K in Exclude<keyof I, keyof MetaData>]: never; }>(base?: I | undefined): MetaData;
     fromPartial<I_1 extends {
         Network?: Network | undefined;
-        ExecutedAt?: Date | undefined;
+        UpdatedAt?: Date | undefined;
         CreatedAt?: Date | undefined;
     } & {
         Network?: Network | undefined;
-        ExecutedAt?: Date | undefined;
+        UpdatedAt?: Date | undefined;
         CreatedAt?: Date | undefined;
     } & { [K_1 in Exclude<keyof I_1, keyof MetaData>]: never; }>(object: I_1): MetaData;
 };

@@ -47,15 +47,15 @@ export function networkToJSON(object) {
     }
 }
 function createBaseMetaData() {
-    return { Network: 0, ExecutedAt: undefined, CreatedAt: undefined };
+    return { Network: 0, UpdatedAt: undefined, CreatedAt: undefined };
 }
 export const MetaData = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.Network !== 0) {
             writer.uint32(8).int32(message.Network);
         }
-        if (message.ExecutedAt !== undefined) {
-            Timestamp.encode(toTimestamp(message.ExecutedAt), writer.uint32(18).fork()).ldelim();
+        if (message.UpdatedAt !== undefined) {
+            Timestamp.encode(toTimestamp(message.UpdatedAt), writer.uint32(18).fork()).ldelim();
         }
         if (message.CreatedAt !== undefined) {
             Timestamp.encode(toTimestamp(message.CreatedAt), writer.uint32(26).fork()).ldelim();
@@ -79,7 +79,7 @@ export const MetaData = {
                     if (tag !== 18) {
                         break;
                     }
-                    message.ExecutedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+                    message.UpdatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
                     continue;
                 case 3:
                     if (tag !== 26) {
@@ -98,7 +98,7 @@ export const MetaData = {
     fromJSON(object) {
         return {
             Network: isSet(object.Network) ? networkFromJSON(object.Network) : 0,
-            ExecutedAt: isSet(object.ExecutedAt) ? fromJsonTimestamp(object.ExecutedAt) : undefined,
+            UpdatedAt: isSet(object.UpdatedAt) ? fromJsonTimestamp(object.UpdatedAt) : undefined,
             CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
         };
     },
@@ -107,8 +107,8 @@ export const MetaData = {
         if (message.Network !== 0) {
             obj.Network = networkToJSON(message.Network);
         }
-        if (message.ExecutedAt !== undefined) {
-            obj.ExecutedAt = message.ExecutedAt.toISOString();
+        if (message.UpdatedAt !== undefined) {
+            obj.UpdatedAt = message.UpdatedAt.toISOString();
         }
         if (message.CreatedAt !== undefined) {
             obj.CreatedAt = message.CreatedAt.toISOString();
@@ -122,7 +122,7 @@ export const MetaData = {
         var _a, _b, _c;
         const message = createBaseMetaData();
         message.Network = (_a = object.Network) !== null && _a !== void 0 ? _a : 0;
-        message.ExecutedAt = (_b = object.ExecutedAt) !== null && _b !== void 0 ? _b : undefined;
+        message.UpdatedAt = (_b = object.UpdatedAt) !== null && _b !== void 0 ? _b : undefined;
         message.CreatedAt = (_c = object.CreatedAt) !== null && _c !== void 0 ? _c : undefined;
         return message;
     },

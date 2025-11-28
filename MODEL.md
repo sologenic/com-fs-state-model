@@ -11,7 +11,11 @@
 
 ## Overview
 
-The State provides a comprehensive data structure for managing state within the system.
+The State provides a comprehensive data structure for managing state within the system. This model supports metadata and audit: includes metadata and audit trails for tracking changes, and more. 
+
+Key features of the {model_name.lower()} model include:
+- **Metadata and Audit**: Includes metadata and audit trails for tracking changes
+
 ## state.proto
 
 ### Package Information
@@ -28,6 +32,22 @@ The `state.proto` file defines the core state model for state management. It pro
 #### State {#state}
 
 The `State` message provides state data and operations.
+
+**Field Table:**
+
+| Field Name | Type | Required/Optional | Description |
+|------------|------|-------------------|-------------|
+| StateType | `StateType` | Required | Type classification for this item (see related enum) |
+| Content | `string` | Required | Content value |
+| MetaData | `metadata.MetaData` | Required | Metadata information including network and version details |
+
+**Use Cases:**
+- Creating new state records
+- Retrieving state information
+- Updating state data
+
+**Important Notes:**
+- This message provides the state representation
 
 ## Version Information
 

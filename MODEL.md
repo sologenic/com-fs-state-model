@@ -6,6 +6,8 @@
 - [state.proto](#state)
   - [Messages](#messages)
     - [State](#state)
+  - [Enums](#enums)
+    - [StateType](#statetype)
 - [Version Information](#version-information)
 - [Support](#support)
 
@@ -48,6 +50,35 @@ The `State` message provides state data and operations.
 
 **Important Notes:**
 - This message provides the state representation
+
+### Enums
+
+#### StateType {#statetype}
+
+The `StateType` enum defines the possible states or types for state, allowing for classification and state management.
+
+**Value Table:**
+
+| Value Name | Number | Description |
+|------------|--------|-------------|
+| NOT_USED | 0 | Default/unused value (protobuf convention) |
+| ORDER_PURCHASE_LISTENER | 1 | Order Purchase Listener state or type |
+| ORDER_SELL_LISTENER | 2 | Order Sell Listener state or type |
+| ORDER_CANCEL_REQUEST_LISTENER | 3 | Order Cancel Request Listener state or type |
+| ORDER_UPDATE_LISTENER | 4 | Order Update Listener state or type |
+| ORDER_PAY_LISTENER | 5 | Order Pay Listener state or type |
+| REATTESTATION_REQUEST_LISTENER | 6 | Reattestation Request Listener state or type |
+| PUB_SUB | 7 | Pub Sub state or type |
+
+**Use Cases:**
+- Setting statetype for items
+- Filtering items by statetype in queries
+- Enforcing business logic based on statetype
+
+**Important Notes:**
+- Values with `NOT_USED` prefix or number 0 follow protobuf conventions for default enum values and should not be actively used
+- Only valid statetype values should be used in production code
+- StateType changes should be tracked in audit trails for compliance purposes
 
 ## Version Information
 

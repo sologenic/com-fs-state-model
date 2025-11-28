@@ -13,7 +13,7 @@
 
 The State provides a comprehensive data structure for managing state within the system. This model supports metadata and audit: includes metadata and audit trails for tracking changes, and more. 
 
-Key features of the {model_name.lower()} model include:
+Key features of the state model include:
 - **Metadata and Audit**: Includes metadata and audit trails for tracking changes
 
 ## state.proto

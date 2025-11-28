@@ -29,20 +29,6 @@ The `state.proto` file defines the core state model for state management. It pro
 
 The `State` message provides state data and operations.
 
-**Field Table:**
-
-| Field Name | Type | Required/Optional | Description |
-|------------|------|-------------------|-------------|
-| ORDER_PAY_LISTENER | `Execution` | Required | ORDER_PAY_LISTENER field |
-
-**Use Cases:**
-- Creating new state records
-- Retrieving state information
-- Updating state data
-
-**Important Notes:**
-- This message provides the state representation
-
 ## Version Information
 
 This documentation corresponds to the Protocol Buffer definitions in `state.proto`. The proto file(s) use `proto3` syntax. When referencing this documentation, ensure that the version of the proto files matches the version of the generated code and API implementations you are using.

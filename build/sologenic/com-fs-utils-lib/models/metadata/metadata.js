@@ -47,7 +47,7 @@ export function networkToJSON(object) {
     }
 }
 function createBaseMetaData() {
-    return { Network: 0, UpdatedAt: undefined, CreatedAt: undefined };
+    return { Network: 0, UpdatedAt: undefined, CreatedAt: undefined, UpdatedByAccount: undefined };
 }
 export const MetaData = {
     encode(message, writer = _m0.Writer.create()) {
@@ -59,6 +59,9 @@ export const MetaData = {
         }
         if (message.CreatedAt !== undefined) {
             Timestamp.encode(toTimestamp(message.CreatedAt), writer.uint32(26).fork()).ldelim();
+        }
+        if (message.UpdatedByAccount !== undefined) {
+            writer.uint32(34).string(message.UpdatedByAccount);
         }
         return writer;
     },
@@ -87,6 +90,12 @@ export const MetaData = {
                     }
                     message.CreatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
                     continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.UpdatedByAccount = reader.string();
+                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -100,6 +109,7 @@ export const MetaData = {
             Network: isSet(object.Network) ? networkFromJSON(object.Network) : 0,
             UpdatedAt: isSet(object.UpdatedAt) ? fromJsonTimestamp(object.UpdatedAt) : undefined,
             CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
+            UpdatedByAccount: isSet(object.UpdatedByAccount) ? globalThis.String(object.UpdatedByAccount) : undefined,
         };
     },
     toJSON(message) {
@@ -113,17 +123,21 @@ export const MetaData = {
         if (message.CreatedAt !== undefined) {
             obj.CreatedAt = message.CreatedAt.toISOString();
         }
+        if (message.UpdatedByAccount !== undefined) {
+            obj.UpdatedByAccount = message.UpdatedByAccount;
+        }
         return obj;
     },
     create(base) {
         return MetaData.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBaseMetaData();
         message.Network = (_a = object.Network) !== null && _a !== void 0 ? _a : 0;
         message.UpdatedAt = (_b = object.UpdatedAt) !== null && _b !== void 0 ? _b : undefined;
         message.CreatedAt = (_c = object.CreatedAt) !== null && _c !== void 0 ? _c : undefined;
+        message.UpdatedByAccount = (_d = object.UpdatedByAccount) !== null && _d !== void 0 ? _d : undefined;
         return message;
     },
 };

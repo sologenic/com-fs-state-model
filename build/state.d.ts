@@ -11,6 +11,7 @@ export declare enum StateType {
     ORDER_PAY_LISTENER = 5,
     REATTESTATION_REQUEST_LISTENER = 6,
     PUB_SUB = 7,
+    ORDER_PASS_LISTENER = 8,
     UNRECOGNIZED = -1
 }
 export declare function stateTypeFromJSON(object: any): StateType;
@@ -32,6 +33,7 @@ export declare const State: {
             Network?: import("./sologenic/com-fs-utils-lib/models/metadata/metadata").Network | undefined;
             UpdatedAt?: Date | undefined;
             CreatedAt?: Date | undefined;
+            UpdatedByAccount?: string | undefined;
         } | undefined;
     } & {
         StateType?: StateType | undefined;
@@ -40,10 +42,12 @@ export declare const State: {
             Network?: import("./sologenic/com-fs-utils-lib/models/metadata/metadata").Network | undefined;
             UpdatedAt?: Date | undefined;
             CreatedAt?: Date | undefined;
+            UpdatedByAccount?: string | undefined;
         } & {
             Network?: import("./sologenic/com-fs-utils-lib/models/metadata/metadata").Network | undefined;
             UpdatedAt?: Date | undefined;
             CreatedAt?: Date | undefined;
+            UpdatedByAccount?: string | undefined;
         } & { [K in Exclude<keyof I["MetaData"], keyof MetaData>]: never; }) | undefined;
     } & { [K_1 in Exclude<keyof I, keyof State>]: never; }>(base?: I | undefined): State;
     fromPartial<I_1 extends {
@@ -53,6 +57,7 @@ export declare const State: {
             Network?: import("./sologenic/com-fs-utils-lib/models/metadata/metadata").Network | undefined;
             UpdatedAt?: Date | undefined;
             CreatedAt?: Date | undefined;
+            UpdatedByAccount?: string | undefined;
         } | undefined;
     } & {
         StateType?: StateType | undefined;
@@ -61,10 +66,12 @@ export declare const State: {
             Network?: import("./sologenic/com-fs-utils-lib/models/metadata/metadata").Network | undefined;
             UpdatedAt?: Date | undefined;
             CreatedAt?: Date | undefined;
+            UpdatedByAccount?: string | undefined;
         } & {
             Network?: import("./sologenic/com-fs-utils-lib/models/metadata/metadata").Network | undefined;
             UpdatedAt?: Date | undefined;
             CreatedAt?: Date | undefined;
+            UpdatedByAccount?: string | undefined;
         } & { [K_2 in Exclude<keyof I_1["MetaData"], keyof MetaData>]: never; }) | undefined;
     } & { [K_3 in Exclude<keyof I_1, keyof State>]: never; }>(object: I_1): State;
 };

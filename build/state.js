@@ -13,6 +13,7 @@ export var StateType;
     StateType[StateType["ORDER_PAY_LISTENER"] = 5] = "ORDER_PAY_LISTENER";
     StateType[StateType["REATTESTATION_REQUEST_LISTENER"] = 6] = "REATTESTATION_REQUEST_LISTENER";
     StateType[StateType["PUB_SUB"] = 7] = "PUB_SUB";
+    StateType[StateType["ORDER_PASS_LISTENER"] = 8] = "ORDER_PASS_LISTENER";
     StateType[StateType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
 })(StateType || (StateType = {}));
 export function stateTypeFromJSON(object) {
@@ -41,6 +42,9 @@ export function stateTypeFromJSON(object) {
         case 7:
         case "PUB_SUB":
             return StateType.PUB_SUB;
+        case 8:
+        case "ORDER_PASS_LISTENER":
+            return StateType.ORDER_PASS_LISTENER;
         case -1:
         case "UNRECOGNIZED":
         default:
@@ -65,6 +69,8 @@ export function stateTypeToJSON(object) {
             return "REATTESTATION_REQUEST_LISTENER";
         case StateType.PUB_SUB:
             return "PUB_SUB";
+        case StateType.ORDER_PASS_LISTENER:
+            return "ORDER_PASS_LISTENER";
         case StateType.UNRECOGNIZED:
         default:
             return "UNRECOGNIZED";

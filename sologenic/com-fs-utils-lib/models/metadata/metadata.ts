@@ -58,10 +58,11 @@ export interface MetaData {
     | undefined;
   /** Internal to listener */
   CreatedAt: Date | undefined;
+  UpdatedByAccount?: string | undefined;
 }
 
 function createBaseMetaData(): MetaData {
-  return { Network: 0, UpdatedAt: undefined, CreatedAt: undefined };
+  return { Network: 0, UpdatedAt: undefined, CreatedAt: undefined, UpdatedByAccount: undefined };
 }
 
 export const MetaData = {
@@ -74,6 +75,9 @@ export const MetaData = {
     }
     if (message.CreatedAt !== undefined) {
       Timestamp.encode(toTimestamp(message.CreatedAt), writer.uint32(26).fork()).ldelim();
+    }
+    if (message.UpdatedByAccount !== undefined) {
+      writer.uint32(34).string(message.UpdatedByAccount);
     }
     return writer;
   },
@@ -106,6 +110,13 @@ export const MetaData = {
 
           message.CreatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.UpdatedByAccount = reader.string();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -120,6 +131,7 @@ export const MetaData = {
       Network: isSet(object.Network) ? networkFromJSON(object.Network) : 0,
       UpdatedAt: isSet(object.UpdatedAt) ? fromJsonTimestamp(object.UpdatedAt) : undefined,
       CreatedAt: isSet(object.CreatedAt) ? fromJsonTimestamp(object.CreatedAt) : undefined,
+      UpdatedByAccount: isSet(object.UpdatedByAccount) ? globalThis.String(object.UpdatedByAccount) : undefined,
     };
   },
 
@@ -134,6 +146,9 @@ export const MetaData = {
     if (message.CreatedAt !== undefined) {
       obj.CreatedAt = message.CreatedAt.toISOString();
     }
+    if (message.UpdatedByAccount !== undefined) {
+      obj.UpdatedByAccount = message.UpdatedByAccount;
+    }
     return obj;
   },
 
@@ -145,6 +160,7 @@ export const MetaData = {
     message.Network = object.Network ?? 0;
     message.UpdatedAt = object.UpdatedAt ?? undefined;
     message.CreatedAt = object.CreatedAt ?? undefined;
+    message.UpdatedByAccount = object.UpdatedByAccount ?? undefined;
     return message;
   },
 };

@@ -14,6 +14,7 @@ export enum StateType {
   ORDER_PAY_LISTENER = 5,
   REATTESTATION_REQUEST_LISTENER = 6,
   PUB_SUB = 7,
+  ORDER_PASS_LISTENER = 8,
   UNRECOGNIZED = -1,
 }
 
@@ -43,6 +44,9 @@ export function stateTypeFromJSON(object: any): StateType {
     case 7:
     case "PUB_SUB":
       return StateType.PUB_SUB;
+    case 8:
+    case "ORDER_PASS_LISTENER":
+      return StateType.ORDER_PASS_LISTENER;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -68,6 +72,8 @@ export function stateTypeToJSON(object: StateType): string {
       return "REATTESTATION_REQUEST_LISTENER";
     case StateType.PUB_SUB:
       return "PUB_SUB";
+    case StateType.ORDER_PASS_LISTENER:
+      return "ORDER_PASS_LISTENER";
     case StateType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
